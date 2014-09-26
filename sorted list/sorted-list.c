@@ -12,19 +12,20 @@
  * once they are no longer in the list or referred to in an iterator.
  * 
  * If the function succeeds, it returns a (non-NULL) SortedListT object,
- * otherwise, it returns NULL.
+ * otherwise, it returns NULL.	
  *
  * You need to fill in this function as part of your implementation.
  */
 
 SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df){
 
-	SortedListPtr list;
+	SortedListPtr list = (SortedListPtr)malloc(sizeof(SortedList));
 
-	list->next = NULL;
+	list->front = NULL;
 	list->compareFunc = cf;
 	list->destroyFunc = df;
 
+	return list;
 }
 
 /*

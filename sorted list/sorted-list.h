@@ -6,21 +6,30 @@
 
 #include <stdlib.h>
 
+struct Node* {
+	(void *) data;
+	struct Node next;
+	//reference count?
+}Node;
+
 /*
  * Sorted list type.  You need to fill in the type as part of your implementation.
  */
-struct SortedList
-{
+struct SortedList{
+	struct Node front;
+
+	CompareFuncT compareFunc;
+	DestructFuncT destroyFunc;	
 };
 typedef struct SortedList* SortedListPtr;
 
 
 /*
  * Iterator type for user to "walk" through the list item by item, from
- * beginning to end.  You need to fill in the type as part of your implementation.
+ * beginning to end. You need to fill in the type as part of your implementation.
  */
-struct SortedListIterator
-{
+struct SortedListIterator{
+	struct Node current;
 };
 typedef struct SortedListIterator* SortedListIteratorPtr;
 
