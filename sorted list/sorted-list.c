@@ -17,14 +17,13 @@
  * You need to fill in this function as part of your implementation.
  */
 
-SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df){
-
-	SortedListPtr list = (SortedListPtr)malloc(sizeof(SortedList));
-
-	list->front = NULL;
+SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df)
+{
+	SortedListPtr list = (SortedListPtr)malloc(sizeof(SortedListPtr));
+	//list->front = NULL;
+	list->size  = 0;
 	list->compareFunc = cf;
 	list->destroyFunc = df;
-
 	return list;
 }
 
@@ -47,7 +46,55 @@ void SLDestroy(SortedListPtr list);
  * You need to fill in this function as part of your implementation.
  */
 
-int SLInsert(SortedListPtr list, void *newObj);
+int SLInsert(SortedListPtr list, void *newObj)
+{
+	//1. if list or newO is null
+	if(list == NULL || newObj == NULL){
+		return 0; 
+	}
+	//2. initialize node to be inserted
+	NodePtr temp = (NodePtr)malloc(sizeof(NodePtr));
+	temp->data = newObj;
+
+	//3. insert at beginning if list is empty
+	if(list->size == 0){
+		list->front = temp;
+		list->size++;
+	}
+	
+	NodePtr prevptr = NULL;
+	NodePtr ptr = list->front;
+	NodePtr nextptr = ptr->next;
+
+	//traverses the list to find relevant ptr
+	while(ptr != NULL){
+		// compare will be -1 when ptr is smaller, 0 when equal, and 1 when newObj is smaller
+		int compare = list->compareFunc(ptr, newObj);
+
+		//4. duplicate insertion is an error
+		if(compare == 0){
+			//error message?
+			return 0;
+		}
+
+	//5. insert at the end of the list
+		//TODO: finish this
+		if(compare == 1 && ptr->next == NULL){
+			ptr->next = temp;
+			return 1;
+		}
+
+	//6. insert in the middle
+
+
+		//7. update ptr
+		prevptr = ptr;
+		ptr = ptr->next;
+		nextptr = ptr->next; 
+
+	}
+	return 1;
+}
 
 
 /*

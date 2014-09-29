@@ -6,33 +6,12 @@
 
 #include <stdlib.h>
 
-struct Node* {
-	(void *) data;
-	struct Node next;
-	//reference count?
-}Node;
-
-/*
- * Sorted list type.  You need to fill in the type as part of your implementation.
- */
-struct SortedList{
-	struct Node front;
-
-	CompareFuncT compareFunc;
-	DestructFuncT destroyFunc;	
-};
-typedef struct SortedList* SortedListPtr;
-
-
-/*
- * Iterator type for user to "walk" through the list item by item, from
- * beginning to end. You need to fill in the type as part of your implementation.
- */
-struct SortedListIterator{
-	struct Node current;
-};
-typedef struct SortedListIterator* SortedListIteratorPtr;
-
+typedef struct Node* NodePtr;
+struct Node {
+	void* data;
+	NodePtr next;
+	int refCount;		//interator count
+} Node;
 
 /*
  * When your sorted list is used to store objects of some type, since the
@@ -50,6 +29,28 @@ typedef struct SortedListIterator* SortedListIteratorPtr;
 
 typedef int (*CompareFuncT)( void *, void * );
 typedef void (*DestructFuncT)( void * );
+
+/*
+ * Sorted list type.  You need to fill in the type as part of your implementation.
+ */
+struct SortedList{
+	NodePtr front;
+	int size;
+
+	CompareFuncT compareFunc;
+	DestructFuncT destroyFunc;	
+};
+typedef struct SortedList* SortedListPtr;
+
+
+/*
+ * Iterator type for user to "walk" through the list item by item, from
+ * beginning to end. You need to fill in the type as part of your implementation.
+ */
+struct SortedListIterator{
+	struct Node current;
+};
+typedef struct SortedListIterator* SortedListIteratorPtr;
 
 /*
  * SLCreate creates a new, empty sorted list.  The caller must provide
