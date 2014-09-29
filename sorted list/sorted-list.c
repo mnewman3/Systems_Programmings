@@ -60,9 +60,10 @@ int SLInsert(SortedListPtr list, void *newObj)
 	if(list->size == 0){
 		list->front = temp;
 		list->size++;
+		return 1;
 	}
 	
-	NodePtr prevptr = NULL;
+	//NodePtr prevptr = NULL;
 	NodePtr ptr = list->front;
 	NodePtr nextptr = ptr->next;
 
@@ -70,10 +71,11 @@ int SLInsert(SortedListPtr list, void *newObj)
 	while(ptr != NULL){
 		// compare will be -1 when ptr is smaller, 0 when equal, and 1 when newObj is smaller
 		int compare = list->compareFunc(ptr, newObj);
+		int compareNext = list->compareFunc(ptr->next, newObj);
 
 		//4. duplicate insertion is an error
 		if(compare == 0){
-			//error message?
+			//display error message?
 			return 0;
 		}
 
@@ -81,19 +83,26 @@ int SLInsert(SortedListPtr list, void *newObj)
 		//TODO: finish this
 		if(compare == 1 && ptr->next == NULL){
 			ptr->next = temp;
+			list->size++;
 			return 1;
 		}
 
 	//6. insert in the middle
-
+		if(compare == 1 && compareNext == -1){
+			//TODO: check this
+			temp->next = ptr->next;
+			ptr->next = temp;
+			list->size++;
+			return 1;
+		}
 
 		//7. update ptr
-		prevptr = ptr;
+		//prevptr = ptr;
 		ptr = ptr->next;
 		nextptr = ptr->next; 
 
 	}
-	return 1;
+	return 0;
 }
 
 
