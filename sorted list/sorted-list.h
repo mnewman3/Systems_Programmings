@@ -4,6 +4,9 @@
  * sorted-list.h
  */
 
+ // Mike test
+ #include <stdio.h>
+
 #include <stdlib.h>
 
 typedef struct Node* NodePtr;
@@ -48,7 +51,7 @@ typedef struct SortedList* SortedListPtr;
  * beginning to end. You need to fill in the type as part of your implementation.
  */
 struct SortedListIterator{
-	struct Node current;
+	struct NodePtr current;
 };
 typedef struct SortedListIterator* SortedListIteratorPtr;
 
